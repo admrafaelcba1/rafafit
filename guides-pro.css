@@ -1,0 +1,49 @@
+/* RafaFit 2.1: detalhes do exercício com imagens reais; acessível no iPhone */
+.rf-v21-panel{background:#f8fafb;color:#17232e;max-width:550px;border-radius:22px 22px 0 0;overscroll-behavior:contain}
+.rf-v21-panel .guide-history{background:#edf2f5;color:#17232e}
+.rf-v21-panel .guide-history h3,.rf-v21-panel .guide-history p{color:#213643}
+.rf-v21-panel .data-table{color:#233744}
+.rf-v21-panel .data-table th{color:#49616a}
+.rf-v21-panel .hint{color:#637784}
+.rf-guide-top{height:62px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border-bottom:1px solid #e5edf0;padding:6px 14px;position:sticky;top:0;z-index:7}
+.rf-top-title{font-size:16px;font-weight:750;letter-spacing:-.3px;line-height:1.25;text-align:center;flex:1}
+.rf-back,.rf-close{background:#f0f5f6;border:0;color:#213541;border-radius:50%;width:37px;height:37px;font-size:27px;flex:0 0 auto;display:grid;place-items:center}
+.rf-close{font-size:18px}
+.rf-guide-tabs{display:flex;background:#fff;border-bottom:1px solid #dbe4e8;position:sticky;top:62px;z-index:6}
+.rf-guide-tab{flex:1;border:0;border-bottom:3px solid transparent;background:#fff;color:#6e7e89;padding:14px 2px 12px;font-weight:600;font-size:14px}
+.rf-guide-tab[aria-selected=true]{color:#1980d0;border-color:#1980d0}
+.rf-guide-tabpanel[hidden]{display:none!important}
+.rf-exercise-media{position:relative;margin:0;background:#f2f5f5;overflow:hidden}
+.rf-exercise-media .demo-scene{display:block;width:100%;height:auto;max-height:282px;background:#11222b}
+.rf-media-photos{position:absolute;inset:0 0 37px;background:#fff;display:grid;place-items:center}
+.rf-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;transition:opacity .12s linear}
+.rf-photo.rf-first{z-index:1}
+.rf-photo.rf-second{z-index:2;animation:rf-swap 3s steps(1,end) infinite}
+@keyframes rf-swap{0%,49.999%{opacity:0}50%,99.999%{opacity:1}}
+.rf-paused .rf-second{animation-play-state:paused}
+.rf-photo.rf-broken{display:none}
+.rf-media-photos.rf-media-unavailable{display:none}
+.rf-media-signal{position:absolute;z-index:3;top:10px;left:12px;background:#17232bc9;color:#fff;border-radius:7px;padding:5px 8px;font-size:10px;font-weight:700;letter-spacing:.7px}
+.rf-control-line{background:#eef3f5;color:#56717e;min-height:37px;display:flex;align-items:center;justify-content:space-between;gap:7px;padding:5px 13px;font-size:11px}
+.rf-pause-btn{border:1px solid #d2dfe3;border-radius:7px;background:white;color:#1d78ac;padding:4px 8px;font-size:11px;font-weight:700}
+.rf-guide-detail{padding:23px 18px 30px}
+.rf-guide-detail h2{font-size:23px;color:#192b36;letter-spacing:-.6px;margin:0 0 15px}
+.rf-guide-detail h3{color:#283f4c;font-size:16px;margin:24px 0 10px}
+.rf-guide-detail ul,.rf-guide-detail ol{color:#304a57;line-height:1.58;padding-left:21px;margin:9px 0 18px}
+.rf-guide-detail li{margin-bottom:10px}
+.rf-muscle{padding:11px 0;border-bottom:1px solid #e1e8eb;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.rf-muscle span{font-size:10px;letter-spacing:1px;color:#7f929e;font-weight:750;min-width:100px}
+.rf-muscle strong{font-size:14px;color:#233843;font-weight:680;flex:1}
+.rf-guide-intro{font-size:14px;margin:19px 0;color:#455c69}
+.rf-summary-extra{background:#eaf3ef;border-radius:13px;padding:1px 14px;margin:16px 0}
+.rf-summary-extra h3{margin-top:13px;color:#3e5e43}
+.rf-summary-extra ul{margin-bottom:13px}
+.rf-media-credit,.rf-muted{font-size:12px;color:#6b808c;line-height:1.52;margin-top:14px}
+.rf-media-credit a{color:#176fae}
+.rf-guide-footer{position:sticky;bottom:0;background:#fff;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid #e3eaed}
+.rf-guide-done{width:100%;background:#b4f06b;color:#122417;border:0;border-radius:12px;padding:13px;font-weight:800}
+.rf-safety{background:#fff3e3;color:#795723;border-radius:11px;padding:12px 14px;font-size:12px;line-height:1.5;margin-top:22px}
+.rf-history-plot{margin:10px 0 17px;padding:14px;border-radius:13px;background:#eef3f5;min-height:132px}
+.rf-history-plot svg{width:100%;height:auto;display:block}
+.rf-plot-empty{color:#59717e;font-size:13px;line-height:1.5;text-align:center;margin:36px 5px}
+@media(min-width:700px){.rf-v21-panel{border-radius:20px;max-height:92dvh}.rf-v21-overlay{align-items:center}}
