@@ -238,7 +238,7 @@ async function checkAppVersion(force=false){
   const resp=await fetch(url.href,{cache:'no-store'});
   if(!resp.ok)return;
   const remote=await resp.json();
-  if(typeof remote.version==='string'&&/^\\d+\\.\\d+\\.\\d+$/.test(remote.version)&&remote.version!==APP_VERSION)showUpdateBanner(remote.version);
+  if(typeof remote.version==='string'&&/^\d+\.\d+\.\d+$/.test(remote.version)&&remote.version!==APP_VERSION)showUpdateBanner(remote.version);
  }catch(err){/* offline/cache de rede: aplicação continua funcionando */}
 }
 function handleAction(action){switch(action){case 'refresh-app':refreshInstalledApp();break;case 'pause-guide':{const paused=window.RafaFitGuides?.toggle();const b=document.querySelector('[data-action="pause-guide"]');if(b)b.textContent=paused?'▶ Continuar':'⏸ Pausar';break;}case 'water-zero':if(confirm('Zerar o registro de água deste dia?')){ensureDay().waterMl=0;save();render();}break;
