@@ -46,7 +46,7 @@
     const all=record.series.map(sanitize),done=all.filter(s=>s.done).length;
     return '('+done+'/'+all.length+' séries concluídas: '+all.map((s,i)=>(i+1)+': '+(s.kg===''?'sem carga':s.kg+' kg')+' × '+(s.reps===''?'?':s.reps)+' rep'+(s.done?' ✓':' pendente')).join('; ')+')';
   }
-  function card(ex,record,preset,esc,history){
+  function card(ex,record,preset,esc,history,restSeconds){
     const id=esc(ex.id),list=rows(ex,record,preset),complete=list.filter(s=>s.done).length;
     const hasGuide=!!window.RafaFitGuides?.byId(ex.id);
     let demo='';
@@ -59,10 +59,10 @@
     }
     const listRows=list.map((s,i)=>'<tr class="'+(s.done?'rf-finished':'')+'"><td class="rf-series-num">'+(i+1)+'</td><td><input aria-label="Carga da série '+(i+1)+' de '+esc(ex.name)+' em quilogramas" type="number" min="0" max="1000" step="0.5" inputmode="decimal" data-set-id="'+id+'" data-set-row="'+i+'" data-set-field="kg" value="'+esc(s.kg)+'" placeholder="kg"/></td><td><input aria-label="Repetições da série '+(i+1)+' de '+esc(ex.name)+'" type="number" min="0" max="200" step="1" inputmode="numeric" data-set-id="'+id+'" data-set-row="'+i+'" data-set-field="reps" value="'+esc(s.reps)+'" placeholder="reps"/></td><td class="rf-check-cell"><input class="rf-set-checkbox" type="checkbox" aria-label="Concluir série '+(i+1)+' de '+esc(ex.name)+'" data-set-id="'+id+'" data-set-row="'+i+'" data-set-done="1" '+(s.done?'checked':'')+'/></td></tr>').join('');
     return '<div class="session-item rf-set-card" data-exercise-card="'+id+'"><div class="row between"><div><div class="session-title">'+esc(ex.name)+'</div><div class="session-target">Referência: '+esc(ex.target||'Livre')+'</div></div>'+(ex.custom?'<button class="button tiny danger" data-remove-exercise="'+id+'">Excluir</button>':'')+'</div>'+
-    demo+'<div class="rf-set-progress"><span data-set-progress-label="'+id+'">'+complete+' de '+list.length+' séries concluídas</span><span class="rf-badgesmall">'+(Array.isArray(preset)&&preset.length?'Padrão salvo':'Ficha editável')+'</span></div>'+
+    demo+'<div class="rf-rest-setting"><label>⏱ Descanso <input aria-label="Segundos de descanso após série de '+esc(ex.name)+'" type="number" min="10" max="600" step="5" inputmode="numeric" data-rest-seconds="'+id+'" value="'+esc(Number(restSeconds)||90)+'"/> segundos</label><button type="button" data-rest-test="1" aria-label="Testar aviso sonoro">🔊 Testar som</button></div><div class="rf-set-progress"><span data-set-progress-label="'+id+'">'+complete+' de '+list.length+' séries concluídas</span><span class="rf-badgesmall">'+(Array.isArray(preset)&&preset.length?'Padrão salvo':'Ficha editável')+'</span></div>'+
     '<div class="rf-set-table-wrap"><table class="rf-set-table"><thead><tr><th>SÉRIE</th><th>KG</th><th>REP</th><th>FEITO</th></tr></thead><tbody>'+listRows+'</tbody></table></div>'+
     '<div class="rf-set-actions"><button type="button" data-set-action="add" data-set-id="'+id+'">+ Série</button><button type="button" data-set-action="remove" data-set-id="'+id+'" '+(list.length<=1?'disabled':'')+'>− Série</button><button type="button" class="rf-save-preset" data-set-action="preset" data-set-id="'+id+'">☆ Salvar padrão</button></div>'+
-    '<p class="rf-set-help">Ajuste KG e REP conforme o treino. Marque ✓ ao concluir. “Salvar padrão” repete esses valores nas próximas sessões, sempre desmarcados.</p></div>';
+    '<p class="rf-set-help">Ajuste KG e REP conforme o treino. Marque ✓ ao concluir: o descanso inicia automaticamente, com aviso sonoro ao final (mantenha o app aberto). “Salvar padrão” repete KG e REP nas próximas sessões.</p></div>';
   }
   window.RafaFitSets={rows,basic,sanitize,summary,report,card};
 })();
