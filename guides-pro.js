@@ -23,7 +23,7 @@ const PHOTOS={
  f_lateral:['Side_Lateral_Raise','Ombros','—'],
  f_face:['Face_Pull','Ombros posteriores','Costas médias']
 };
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;':'&quot;',"'":'&#39;'}[c]));
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const items=(arr,ordered=false)=>`<${ordered?'ol':'ul'}>${(arr||[]).map(t=>`<li>${esc(t)}</li>`).join('')}</${ordered?'ol':'ul'}>`;
 const tab=(id,text,active=false)=>`<button type="button" class="rf-guide-tab" data-guide-tab="${id}" role="tab" aria-selected="${active?'true':'false'}">${text}</button>`;
 api.modal=function(id,historyHtml){
