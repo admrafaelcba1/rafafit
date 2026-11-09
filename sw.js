@@ -1,7 +1,7 @@
 /* RafaFit 2.1 — atualiza o app sem apagar os registros locais; fotos cacheadas sob demanda. */
-const CACHE='rafafit-offline-v2.2.0';
+const CACHE='rafafit-offline-v2.3.0';
 const PHOTO='rafafit-photos-v2.1.0';
-const ASSETS=['./','./index.html','./styles.css','./guides-pro.css','./workout-sets.css','./app.js','./guides.js','./guides-pro.js','./workout-sets.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-180.png'];
+const ASSETS=['./','./index.html','./styles.css','./guides-pro.css','./workout-sets.css','./rest-timer.css','./app.js','./guides.js','./guides-pro.js','./workout-sets.js','./rest-timer.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-180.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('rafafit-')&&k!==CACHE&&k!==PHOTO).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',event=>{
