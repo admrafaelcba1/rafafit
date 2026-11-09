@@ -1,0 +1,18 @@
+/* RafaFit 2.3 — descanso cronometrado e configurável por exercício */
+.rf-rest-setting{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0 4px;padding:10px 11px;background:#152c2a;border:1px solid #315b4a;border-radius:12px}
+.rf-rest-setting label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:750;color:#cfe9d6;flex:1;min-width:185px}
+.rf-rest-setting input[type=number]{width:70px;min-width:0;height:39px;min-height:39px;font-size:16px;text-align:center;padding:4px}
+.rf-rest-setting button{border:1px solid #466451;background:#274337;color:#c9f3b7;border-radius:9px;padding:8px 10px;min-height:39px;font-size:12px;font-weight:750}
+.rf-rest-banner{position:fixed;bottom:calc(81px + env(safe-area-inset-bottom));left:12px;right:12px;max-width:440px;margin:0 auto;background:#19322d;border:2px solid #a7e873;color:#f0fff0;border-radius:17px;padding:12px 14px;box-shadow:0 12px 45px #000b;z-index:13}
+.rf-rest-title{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;gap:12px}
+.rf-rest-clock{font-size:27px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:1px;color:#c8fa98}
+.rf-rest-exercise{font-size:12px;color:#c3d9d2;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;margin:5px 0 9px}
+.rf-rest-track{height:5px;border-radius:10px;background:#3c594c;overflow:hidden}
+.rf-rest-track div{height:100%;background:#b4f06b;transition:width .4s linear}
+.rf-rest-actions{display:flex;gap:5px;margin-top:10px}
+.rf-rest-actions button{flex:1;background:#2c4b41;color:#e9fff3;border:1px solid #557464;border-radius:9px;min-height:37px;font-size:11px;font-weight:750;padding:5px 4px}
+.rf-rest-actions .rf-rest-sound{flex:0 0 42px;font-size:16px}
+.rf-rest-finished{border-color:#9ad7f8;background:#173640}
+.rf-rest-finished .rf-rest-clock{color:#a6edff}
+.rf-rest-message{font-size:14px;font-weight:800;color:#d6ffb4;margin:8px 0}
+@media(max-width:370px){.rf-rest-banner{left:7px;right:7px;padding:10px}.rf-rest-actions button{font-size:10px}.rf-rest-setting label{min-width:160px}}
