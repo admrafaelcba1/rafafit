@@ -2,6 +2,7 @@
 (()=>{
 'use strict';
 const KEY='rafafit.v1';
+const APP_VERSION='2.3.1';
 const BASELINE_DATE='2026-11-09';
 const DAYS=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
 const PLAN={
@@ -193,7 +194,7 @@ for(const iso of m.all){const o=detailLine(iso);const blank=!model.daily[iso]&&!
 lines.push('## O que acompanhar na próxima semana','- Tendência de circunferência abdominal, força e recuperação, sem buscar perda de gordura localizada.','- Consistência com proteína, água, sono e progressão gradual das cargas.','','_Registros autorrelatados; medidas de bioimpedância são estimativas. Este relatório não substitui atendimento profissional._');return lines.join('\n');}
 function weekJSON(start){const m=metricsForWeek(start);return {app:'RafaFit',version:1,reportType:'weekly',period:{start,end:shiftDate(start,6)},goals:model.settings,baseline:model.measurements[BASELINE_DATE]||null,summary:{daysWithData:m.logged.length,completedActivities:m.completed,plannedActivitiesElapsed:m.planned,daysNoAddedSugar:m.sugar,daysWithAddedSugar:m.sugarBad,averageWaterMl:m.avgWater,averageSleepHours:m.avgSleep,averageProteinG:m.avgProtein,creatineDays:m.creatineDays,wheyDays:m.wheyDays},days:m.all.map(detailLine)};}
 function reports(){const report=weekReport(ui.week);const m=metricsForWeek(ui.week);return `<div class="heading"><div class="micro">Para compartilhar aqui no ChatGPT</div><h1>Relatório semanal</h1><p>Um resumo automático de seus registros. Revise antes de compartilhar.</p></div><section class="card"><div class="row between"><button class="button tiny" data-week="-7">‹ Semana anterior</button><div style="text-align:center"><strong>${displayDate(ui.week,{day:'2-digit',month:'short'})} — ${displayDate(shiftDate(ui.week,6),{day:'2-digit',month:'short'})}</strong><div class="hint">Segunda a domingo</div></div><button class="button tiny" data-week="7">Próxima ›</button></div></section><div class="grid3"><div class="stat"><div class="micro">Registros</div><div class="value">${m.logged.length}/7</div><div class="hint">Dias registrados</div></div><div class="stat"><div class="micro">Atividades</div><div class="value cyan">${m.completed}/${m.planned}</div><div class="hint">Até hoje</div></div><div class="stat"><div class="micro">Sem açúcar</div><div class="value accent">${m.sugar}</div><div class="hint">Dias confirmados</div></div></div>${section('Gerar e compartilhar')}<section class="card"><div class="buttons"><button class="button primary" data-action="copy-report">Copiar relatório</button><button class="button" data-action="download-md">Baixar .md</button><button class="button" data-action="download-week-json">Baixar .json</button><button class="button" data-action="share-report">Compartilhar</button></div><p class="hint" style="margin-top:13px">Para eu analisar sua evolução aqui: toque em <strong>Copiar relatório</strong> e cole na conversa ou anexe o arquivo .md/.json. O app não envia nada automaticamente.</p></section>${section('Prévia do relatório')}<pre class="report">${esc(report)}</pre>`;}
-function settings(){const s=model.settings;return `<div class="heading"><div class="micro">Preferências e segurança</div><h1>Configurações</h1><p>Sem login, sem anúncios e sem envio automático de informações.</p></div><section class="card"><h2>Metas pessoais</h2><div class="field-group" style="margin-top:15px">${field('Meta de água (ml)','waterGoal',s.waterGoal,{min:250,max:10000})}${field('Proteína por dia (g)','proteinGoal',s.proteinGoal,{min:0,max:300})}</div><p class="hint" style="margin-top:12px">As metas são referências editáveis; ajuste de acordo com orientação de nutricionista e com o esforço real.</p></section>${section('Backup e restauração')}<section class="card"><div class="buttons"><button class="button primary" data-action="backup">Baixar backup completo</button><button class="button" data-action="choose-import">Importar backup</button></div><input id="importFile" type="file" accept=".json,application/json" style="display:none"/><p class="hint" style="margin-top:12px">Salve backups fora do celular, por exemplo em uma pasta pessoal. <strong>Importar substitui todos os dados atuais.</strong> Os relatórios semanais não substituem o backup completo.</p></section>${section('Privacidade')}<section class="card"><div class="notice">Seus registros ficam salvos neste dispositivo, no armazenamento do navegador. Não há conta nem servidor de dados. Limpar dados do navegador, desinstalar o app ou trocar de aparelho pode apagar seus registros. Faça backup regularmente.</div><div class="spacer"></div><button class="button danger" data-action="clear">Apagar todos os registros</button></section>${section('Seu projeto')}<section class="card"><div class="row between"><span>Início do desafio</span><strong>09/11/2026</strong></div><div class="row between" style="margin-top:10px"><span>Encerramento inicial</span><strong>08/12/2026</strong></div><div class="row between" style="margin-top:10px"><span>Versão do aplicativo</span><strong>2.3</strong></div></section><p class="hint">Este diário auxilia a organização pessoal, mas não realiza diagnóstico ou prescrição médica. Medidas, suplementos e treinos devem respeitar sua condição clínica.</p>`;}
+function settings(){const s=model.settings;return `<div class="heading"><div class="micro">Preferências e segurança</div><h1>Configurações</h1><p>Sem login, sem anúncios e sem envio automático de informações.</p></div><section class="card"><h2>Metas pessoais</h2><div class="field-group" style="margin-top:15px">${field('Meta de água (ml)','waterGoal',s.waterGoal,{min:250,max:10000})}${field('Proteína por dia (g)','proteinGoal',s.proteinGoal,{min:0,max:300})}</div><p class="hint" style="margin-top:12px">As metas são referências editáveis; ajuste de acordo com orientação de nutricionista e com o esforço real.</p></section>${section('Atualização do aplicativo')}<section class="card"><div class="row between"><div><h3>Versão ${APP_VERSION}</h3><p class="hint" style="margin-top:7px">Atualizar não apaga seus registros. Use este botão se o app instalado estiver diferente do Safari.</p></div></div><button class="button primary" style="margin-top:12px" data-action="refresh-app">↻ Verificar e atualizar RafaFit</button></section>${section('Backup e restauração')}<section class="card"><div class="buttons"><button class="button primary" data-action="backup">Baixar backup completo</button><button class="button" data-action="choose-import">Importar backup</button></div><input id="importFile" type="file" accept=".json,application/json" style="display:none"/><p class="hint" style="margin-top:12px">Salve backups fora do celular, por exemplo em uma pasta pessoal. <strong>Importar substitui todos os dados atuais.</strong> Os relatórios semanais não substituem o backup completo.</p></section>${section('Privacidade')}<section class="card"><div class="notice">Seus registros ficam salvos neste dispositivo, no armazenamento do navegador. Não há conta nem servidor de dados. Limpar dados do navegador, desinstalar o app ou trocar de aparelho pode apagar seus registros. Faça backup regularmente.</div><div class="spacer"></div><button class="button danger" data-action="clear">Apagar todos os registros</button></section>${section('Seu projeto')}<section class="card"><div class="row between"><span>Início do desafio</span><strong>09/11/2026</strong></div><div class="row between" style="margin-top:10px"><span>Encerramento inicial</span><strong>08/12/2026</strong></div><div class="row between" style="margin-top:10px"><span>Versão do aplicativo</span><strong>${APP_VERSION}</strong></div></section><p class="hint">Este diário auxilia a organização pessoal, mas não realiza diagnóstico ou prescrição médica. Medidas, suplementos e treinos devem respeitar sua condição clínica.</p>`;}
 function render(resetScroll=false){
  const top=window.scrollY||0;
  window.RafaFitGuides?.stop();
@@ -205,7 +206,42 @@ function render(resetScroll=false){
 function patchNumeric(obj,key,value,min,max){if(value===''){delete obj[key];return true;}const v=num(value);if(v===null||v<min||v>max)return false;obj[key]=v;return true;}
 function download(name,content,mime){const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download=name;document.body.append(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);}
 async function copyText(text){if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(text);showToast('Relatório copiado! Cole na conversa.');return;}catch(e){}}const t=document.createElement('textarea');t.value=text;document.body.append(t);t.select();try{if(document.execCommand('copy'))showToast('Copiado! Cole na conversa.');else showToast('Use o botão de baixar arquivo.');}catch(e){showToast('Use o botão de baixar arquivo.');}t.remove();}
-function handleAction(action){switch(action){case 'pause-guide':{const paused=window.RafaFitGuides?.toggle();const b=document.querySelector('[data-action="pause-guide"]');if(b)b.textContent=paused?'▶ Continuar':'⏸ Pausar';break;}case 'water-zero':if(confirm('Zerar o registro de água deste dia?')){ensureDay().waterMl=0;save();render();}break;
+let lastVersionCheck=0;
+async function refreshInstalledApp(){
+ if(!navigator.onLine){showToast('Sem conexão. Tente atualizar quando estiver online.');return;}
+ if(!save())return;
+ try{
+  if('serviceWorker' in navigator){
+   const reg=await navigator.serviceWorker.getRegistration('./');
+   if(reg){await reg.update();if(reg.waiting)reg.waiting.postMessage({type:'SKIP_WAITING'});}
+  }
+ }catch(err){console.warn('RafaFit: atualização do worker',err);}
+ const url=new URL('./',location.href);
+ url.searchParams.set('rf_update',String(Date.now()));
+ location.assign(url.href);
+}
+function showUpdateBanner(version){
+ if(document.getElementById('rf-update-alert'))return;
+ const el=document.createElement('aside');el.id='rf-update-alert';el.setAttribute('role','status');
+ el.innerHTML='<span>Nova versão do RafaFit disponível ('+esc(version)+').</span><button type="button" id="rf-update-now">Atualizar agora</button><button type="button" id="rf-update-dismiss" aria-label="Fechar aviso">×</button>';
+ document.body.appendChild(el);
+ el.querySelector('#rf-update-now').addEventListener('click',refreshInstalledApp);
+ el.querySelector('#rf-update-dismiss').addEventListener('click',()=>el.remove());
+}
+async function checkAppVersion(force=false){
+ if(!navigator.onLine)return;
+ const now=Date.now();if(!force&&now-lastVersionCheck<60000)return;
+ lastVersionCheck=now;
+ try{
+  const url=new URL('./version.json',location.href);
+  url.searchParams.set('check',String(now));
+  const resp=await fetch(url.href,{cache:'no-store'});
+  if(!resp.ok)return;
+  const remote=await resp.json();
+  if(typeof remote.version==='string'&&/^\\d+\\.\\d+\\.\\d+$/.test(remote.version)&&remote.version!==APP_VERSION)showUpdateBanner(remote.version);
+ }catch(err){/* offline/cache de rede: aplicação continua funcionando */}
+}
+function handleAction(action){switch(action){case 'refresh-app':refreshInstalledApp();break;case 'pause-guide':{const paused=window.RafaFitGuides?.toggle();const b=document.querySelector('[data-action="pause-guide"]');if(b)b.textContent=paused?'▶ Continuar':'⏸ Pausar';break;}case 'water-zero':if(confirm('Zerar o registro de água deste dia?')){ensureDay().waterMl=0;save();render();}break;
 case 'add-exercise':{const name=document.getElementById('newExerciseName')?.value.trim();const target=document.getElementById('newExerciseTarget')?.value.trim()||'Livre';if(!name){showToast('Digite o nome do exercício.');return;}if(name.length>80){showToast('Nome muito longo.');return;}const index=dow(ui.date);if(!Array.isArray(model.customExercises[index]))model.customExercises[index]=[];const id='custom_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);model.customExercises[index].push({id,name,target,custom:true});save();render();showToast('Exercício adicionado ao plano.');break;}
 case 'copy-report':copyText(weekReport(ui.week));break;
 case 'download-md':download(`RafaFit_Relatorio_${ui.week}.md`,weekReport(ui.week),'text/markdown;charset=utf-8');break;
@@ -222,7 +258,14 @@ if(t.dataset.setField){editWorkoutSetField(t);return;}if(t.dataset.meal){const d
 if(t.dataset.exercise){const d=ensureDay();if(!d.exerciseLogs)d.exerciseLogs={};if(!d.exerciseLogs[t.dataset.exercise])d.exerciseLogs[t.dataset.exercise]={};const key=t.dataset.exerciseField;const input=t.value;if(key==='sets'||key==='load'){if(input!==''&&(num(input)===null||num(input)<0||num(input)>1000))return;d.exerciseLogs[t.dataset.exercise][key]=input===''?'':num(input);}else d.exerciseLogs[t.dataset.exercise][key]=input.slice(0,60);save();return;}
 if(t.dataset.measure){const key=t.dataset.measure;const isEmpty=t.value==='';const check=num(t.value);if(!isEmpty&&(check===null||check<0||check>1000))return;if(!model.measurements[ui.date])model.measurements[ui.date]={};patchNumeric(model.measurements[ui.date],key,t.value,0,({weight:350,waist:250,bodyFat:100,muscle:100,visceral:60,bmi:100,bmr:10000,metabolicAge:120,bpSystolic:300,bpDiastolic:220}[key]||1000));if(!Object.keys(model.measurements[ui.date]).length)delete model.measurements[ui.date];save();return;}
 if(t.dataset.field){const key=t.dataset.field;if(['waterGoal','proteinGoal'].includes(key)){if(patchNumeric(model.settings,key,t.value,0,10000))save();return;}const d=ensureDay();if(['notes'].includes(key)){d[key]=t.value.slice(0,3000);save();return;}const maxima={creatine:30,whey:10,protein:500,sleep:24,energy:5,fatigue:5,eggs:20,yogurt:2000};if(patchNumeric(d,key,t.value,0,maxima[key]||1000))save();return;}});
-if('serviceWorker' in navigator&&window.isSecureContext){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+if('serviceWorker' in navigator&&window.isSecureContext){
+ navigator.serviceWorker.addEventListener('controllerchange',()=>checkAppVersion(true));
+ window.addEventListener('load',async()=>{
+  try{await navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'});}catch(err){}
+  checkAppVersion(true);
+ });
+}else window.addEventListener('load',()=>checkAppVersion(true));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkAppVersion();});
 render();
 // API restrita para testes automatizados de formatação/relatórios, sem conexão externa.
 window.RafaFitCore={localISO,shiftDate,monday,weekReport,weekJSON,metricsForWeek,freshState,exerciseHistory};
