@@ -1,0 +1,22 @@
+/* RafaFit 2.2 — ficha de series planejadas */
+.rf-set-card{padding:16px 0 18px}
+.rf-set-progress{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 9px;font-size:13px;font-weight:700;color:var(--accent)}
+.rf-badgesmall{background:#213b35;color:#c6e5bf;border-radius:50px;font-size:10px;padding:5px 8px;font-weight:650}
+.rf-set-table-wrap{overflow-x:auto;width:100%;border:1px solid var(--edge);border-radius:12px}
+.rf-set-table{table-layout:fixed;width:100%;border-collapse:collapse;font-size:13px}
+.rf-set-table th{padding:10px 5px;color:var(--sub);background:#101f28;font-size:10px;letter-spacing:.6px;font-weight:750}
+.rf-set-table th:first-child{width:18%}.rf-set-table th:last-child{width:20%}
+.rf-set-table td{padding:7px 5px;text-align:center;border-top:1px solid #2d4149}
+.rf-set-table input[type=number]{width:100%;min-width:0;font-size:16px!important;padding:7px 5px!important;height:42px;min-height:42px;text-align:center;border-radius:9px}
+.rf-set-table .rf-series-num{color:#cde9d3;font-weight:800}
+.rf-set-table input[type=checkbox]{appearance:none;-webkit-appearance:none;width:32px;height:32px;min-height:32px;border-radius:10px;border:2px solid #779397;background:#14252d;display:block;margin:auto;position:relative}
+.rf-set-table input[type=checkbox]:checked{background:#b4f06b;border-color:#b4f06b}
+.rf-set-table input[type=checkbox]:checked:after{content:'✓';position:absolute;left:7px;top:1px;font-size:20px;font-weight:900;color:#142317}
+.rf-set-table tr.rf-finished{background:#243e33}
+.rf-set-table tr.rf-finished td:first-child{color:#b4f06b}
+.rf-set-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.rf-set-actions button{background:#20343b;color:#e8f4f0;border:1px solid #3a5557;border-radius:9px;padding:9px 10px;font-size:12px;min-height:38px;font-weight:650}
+.rf-set-actions button:disabled{opacity:.4}
+.rf-set-actions .rf-save-preset{background:#294332;color:#bdf48c;border-color:#507347;flex:1}
+.rf-set-help{font-size:11px;line-height:1.45;color:var(--sub);margin:10px 0 0}
+@media(max-width:360px){.rf-set-actions button{font-size:11px;padding:8px}.rf-set-table th{letter-spacing:0}}
